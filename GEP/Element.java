@@ -1,5 +1,7 @@
 package GEP;
-
+/**
+ * Created by tank on 4/19/16.
+ */
 public class Element{
     
     private Type type;

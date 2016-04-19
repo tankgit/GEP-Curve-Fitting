@@ -4,7 +4,9 @@ import java.util.Vector;
 import java.util.Queue;
 
 import static java.lang.Math.abs;
-
+/**
+ * Created by tank on 4/19/16.
+ */
 public class Tools{
     
     public static GeneNode CreateTree(Vector<Element> chromosome)

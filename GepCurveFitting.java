@@ -1,6 +1,7 @@
 import GEP.*;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
+/**
+ * Created by tank on 4/19/16.
+ */
 class GepCurveFitting{
     public static void main(String args[])
     {
