@@ -1,4 +1,8 @@
 import GEP.*;
+import Tools.*;
+
+import java.io.File;
+
 /**
  * Created by tank on 4/19/16.
  */
@@ -6,6 +10,12 @@ class GepCurveFitting{
     public static void main(String args[])
     {
         baseTest();
+//        String dataPath=args[1];
+        Setting setting=new Setting("src/Settings.CSV");
+
+        RunGEP runGEP=new RunGEP();
+
+        runGEP.loadDatas("src/Data.CSV");
     }
 
     private static void baseTest()
@@ -28,7 +38,7 @@ class GepCurveFitting{
         Data data=new Data();
         data.x.add(2.f);
         data.fx=6.5f;
-        float fitness=Tools.CalcuFitnessFromData(data,chromosome.root);
+        float fitness= Tools.CalcuFitnessFromData(data,chromosome.root);
 
         System.out.println("fitness="+fitness);
     }

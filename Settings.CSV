@@ -1,0 +1,10 @@
+MaxIterationOfEvolve,2000
+IterationOfConstant,1000
+NumberofChromosome,200
+HeadSize,10
+SwapRatio,75
+MutationRation,30
+ConstantMax,1000
+ConstantMin,-1000
+ConstantStep,0.01
+Operators,0,1,2

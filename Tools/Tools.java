@@ -1,4 +1,6 @@
-package GEP;
+package Tools;
+import GEP.*;
+
 import java.util.LinkedList;
 import java.util.Vector;
 import java.util.Queue;
@@ -15,7 +17,7 @@ public class Tools{
         {
             GeneNode root=new GeneNode(chromosome.elementAt(0));
             Queue<GeneNode> opeQueue=new LinkedList<>();
-            if(chromosome.elementAt(0).getType()==Type.OPERATOR)
+            if(chromosome.elementAt(0).getType()== Type.OPERATOR)
             {
                 opeQueue.add(root);
                 for(int i=1;i<chromosome.size()&&opeQueue.size()>0;i++)
@@ -45,7 +47,7 @@ public class Tools{
         }
     }
     
-    public static float CalcuFitnessFromData(Data data,GeneNode root)
+    public static float CalcuFitnessFromData(Data data, GeneNode root)
     {
         return abs(data.fx-Calcul(data,root));
     }

@@ -1,5 +1,7 @@
 package GEP;
 
+import Tools.Tools;
+
 import java.util.Vector;
 /**
  * Created by tank on 4/19/16.
@@ -37,7 +39,7 @@ public class Chromosome{
     public void Initialize()
     {
         this.fitness=0;
-        this.root=Tools.CreateTree(this.chromosome);
+        this.root= Tools.CreateTree(this.chromosome);
     }
     
     public void CalcuFitness(Data data)

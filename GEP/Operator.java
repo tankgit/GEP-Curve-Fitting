@@ -18,6 +18,7 @@ public class Operator{
         }        
     }
 
+
 	//number of operands
 	private int numOperand;
 
