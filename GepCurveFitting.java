@@ -1,22 +1,34 @@
 import GEP.*;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 class GepCurveFitting{
-    public static void main(String args[]){
-        System.out.println("Test class \"Operator\":");
-        Operator adds=new Operator(2,0);
-        System.out.println(""+adds.getSign());
-        System.out.println(""+adds.rule(2,5));
-        
-        System.out.println("Test class \"Element\":");
-        Element element=new Element(1);
-        System.out.println(""+element.getValue());
-        System.out.println(""+element.getType());
-        
-        System.out.println("Test class \"Chromosome\":");
+    public static void main(String args[])
+    {
+        baseTest();
+    }
+
+    private static void baseTest()
+    {
         Operator add=new Operator(2,0);
         Operator mul=new Operator(2,1);
         Operator div=new Operator(2,2);
-        
-        Chromosome chromosome;
+
+        Chromosome chromosome=new Chromosome();
+        chromosome.Add(new Element(add));
+        chromosome.Add(new Element(mul));
+        chromosome.Add(new Element(div));
+        chromosome.Add(new Element(2.f));
+        chromosome.Add(new Element(0));
+        chromosome.Add(new Element(5.f));
+        chromosome.Add(new Element(0));
+        chromosome.Initialize();
+        Display.displayChromosome(chromosome);
+
+        Data data=new Data();
+        data.x.add(2.f);
+        data.fx=6.5f;
+        float fitness=Tools.CalcuFitnessFromData(data,chromosome.root);
+
+        System.out.println("fitness="+fitness);
     }
 }

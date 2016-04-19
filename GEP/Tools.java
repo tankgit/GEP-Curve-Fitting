@@ -16,7 +16,7 @@ public class Tools{
             if(chromosome.elementAt(0).getType()==Type.OPERATOR)
             {
                 opeQueue.add(root);
-                for(int i=0;i<chromosome.size()&&opeQueue.size()>0;i++)
+                for(int i=1;i<chromosome.size()&&opeQueue.size()>0;i++)
                 {
                     GeneNode next=new GeneNode(chromosome.elementAt(i));
                     if(next.element.getType()==Type.OPERATOR)
@@ -31,7 +31,7 @@ public class Tools{
                     else
                     {
                         opeQueue.peek().right=next;
-                        opeQueue.remove();
+                        opeQueue.poll();
                     }
                 }
             }

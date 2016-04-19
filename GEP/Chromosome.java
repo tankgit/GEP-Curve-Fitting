@@ -8,7 +8,7 @@ public class Chromosome{
     
     public float fitness;
     
-    GeneNode root;
+    public GeneNode root;
     
     public Chromosome()
     {
