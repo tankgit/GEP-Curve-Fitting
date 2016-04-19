@@ -6,5 +6,6 @@ package GEP;
 public enum Type {
     CONSTANT,
     OPERATOR,
-    VARIABLE
+    VARIABLE,
+    NULL
 }

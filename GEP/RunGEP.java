@@ -12,15 +12,13 @@ import java.util.Vector;
  */
 public class RunGEP {
 
-    private Setting setting;
+    public Vector<Data> datas=new Vector<>();
 
-    public Vector<Data> datas;
+    public Population population=new Population();
 
-    public Population population;
+    private int NumberOfEvolveIteration;
 
-    int NumberOfEvolveIteration;
-
-    int NumberOfConstantIteration;
+    private int NumberOfConstantIteration;
 
     public RunGEP()
     {
@@ -32,6 +30,19 @@ public class RunGEP {
     {
         Vector<String[]> dataList= ParseCSV.readCSV(new File(dataPath));
         for(String[] data:dataList)
-                this.datas.add(new Data(data));
+            this.datas.add(new Data(data));
+        Setting.NumberOfVariables=dataList.get(0).length-1;
+    }
+
+    public void run()
+    {
+        CreateFirstGeneration();
+
+    }
+
+    public void CreateFirstGeneration()
+    {
+        population.firstGeneration();
+        
     }
 }

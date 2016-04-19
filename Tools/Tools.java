@@ -1,11 +1,11 @@
 package Tools;
 import GEP.*;
 
-import java.util.LinkedList;
-import java.util.Vector;
-import java.util.Queue;
+import java.util.*;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.random;
+
 /**
  * Created by tank on 4/19/16.
  */
@@ -70,5 +70,40 @@ public class Tools{
             }
         }
         return 0;
+    }
+
+    public static void CreateRandomChromosome(Chromosome chromosome,int head,int tail)
+    {
+        chromosome.Clear();
+        int sizeOfTree=head+tail;
+        for(int i=0;i<sizeOfTree;i++)
+        {
+            boolean inHead=(i<head);
+            chromosome.Add(CreateRandomElement(inHead));
+        }
+        chromosome.Initialize();
+    }
+
+    public static Element CreateRandomElement(boolean inHead)
+    {
+        Type type=RandomType((int)random()*10);
+        if(!inHead&&type==Type.OPERATOR)
+            type=Type.CONSTANT;
+        switch(type){
+            case CONSTANT: return new Element(random()*(Setting.ConstantMax-Setting.ConstantMin)+Setting.ConstantMin);
+            case VARIABLE: return new Element((int)random()*Setting.NumberOfVariables);
+            case OPERATOR: return new Element((int)random()*Setting.operators.size());
+            default: return null;
+        }
+    }
+
+    public static Type RandomType(int seed)
+    {
+        switch(seed%3+1){
+            case 1:return Type.VARIABLE;
+            case 2:return Type.CONSTANT;
+            case 3:return Type.OPERATOR;
+            default: return Type.NULL;
+        }
     }
 }

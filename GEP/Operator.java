@@ -4,6 +4,17 @@ package GEP;
  */
 public class Operator{
 
+    //TODO: redefine the operator, implement numOperand binding with type.
+
+    //number of operands
+    private int numOperand;
+
+    //sign of operator
+    private char sign;
+
+    //type of operator
+    private int type;
+
     public Operator(int numOperand,int type)
     {
         this.numOperand=numOperand;
@@ -18,16 +29,6 @@ public class Operator{
         }        
     }
 
-
-	//number of operands
-	private int numOperand;
-
-	//sign of operator
-	private char sign;
-
-	//type of operator
-	private int type;
-    
     private void setSign(int type) throws Exception
     {
         switch(type)

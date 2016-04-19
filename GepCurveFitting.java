@@ -11,11 +11,13 @@ class GepCurveFitting{
     {
         baseTest();
 //        String dataPath=args[1];
-        Setting setting=new Setting("src/Settings.CSV");
+        new Setting("src/Settings.CSV");
 
         RunGEP runGEP=new RunGEP();
 
         runGEP.loadDatas("src/Data.CSV");
+
+        runGEP.run();
     }
 
     private static void baseTest()

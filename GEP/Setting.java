@@ -11,27 +11,27 @@ import java.util.Vector;
  */
 public class Setting {
 
-    //private int NumberOfVariables;
+    public static int NumberOfVariables;
 
-    public int MaxIterationOfEvolve;
+    public static int MaxIterationOfEvolve;
 
-    public int IterationOfConstant;
+    public static int IterationOfConstant;
 
-    public int NumberOfChromosome;
+    public static int NumberOfChromosome;
 
-    public int HeadSize;
+    public static int HeadSize;
 
-    public int SwapRatio;
+    public static int SwapRatio;
 
-    public int MutationRatio;
+    public static int MutationRatio;
 
-    public float ConstantMax;
+    public static float ConstantMax;
 
-    public float ConstantMin;
+    public static float ConstantMin;
 
-    public float ConstantStep;
+    public static float ConstantStep;
 
-    public Vector<Operator> operators=new Vector<>();
+    public static Vector<Operator> operators=new Vector<>();
 
     public Setting(String path)
     {
@@ -39,20 +39,20 @@ public class Setting {
         if(dataList!=null&&!dataList.isEmpty())
         {
             int i=0;
-            this.MaxIterationOfEvolve= Integer.parseInt(dataList.get(i++)[1]);
-            this.IterationOfConstant= Integer.parseInt(dataList.get(i++)[1]);
-            this.NumberOfChromosome = Integer.parseInt(dataList.get(i++)[1]);
-            this.HeadSize=Integer.parseInt(dataList.get(i++)[1]);
-            this.SwapRatio=Integer.parseInt(dataList.get(i++)[1]);
-            this.MutationRatio=Integer.parseInt(dataList.get(i++)[1]);
-            this.ConstantMax=Float.parseFloat(dataList.get(i++)[1]);
-            this.ConstantMin= Float.parseFloat(dataList.get(i++)[1]);
-            this.ConstantStep=Float.parseFloat(dataList.get(i++)[1]);
+            MaxIterationOfEvolve= Integer.parseInt(dataList.get(i++)[1]);
+            IterationOfConstant= Integer.parseInt(dataList.get(i++)[1]);
+            NumberOfChromosome = Integer.parseInt(dataList.get(i++)[1]);
+            HeadSize=Integer.parseInt(dataList.get(i++)[1]);
+            SwapRatio=Integer.parseInt(dataList.get(i++)[1]);
+            MutationRatio=Integer.parseInt(dataList.get(i++)[1]);
+            ConstantMax=Float.parseFloat(dataList.get(i++)[1]);
+            ConstantMin= Float.parseFloat(dataList.get(i++)[1]);
+            ConstantStep=Float.parseFloat(dataList.get(i++)[1]);
             for(String ope:dataList.get(i))
             {
                 System.out.println();
                 if(!ope.equals("Operators"))
-                this.operators.add(new Operator(2,Integer.parseInt(ope)));
+                operators.add(new Operator(2,Integer.parseInt(ope)));
             }
 
         }
