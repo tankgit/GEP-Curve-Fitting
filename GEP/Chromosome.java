@@ -45,5 +45,8 @@ public class Chromosome{
     public void CalcuFitness(Data data)
     {
         this.fitness+=Tools.CalcuFitnessFromData(data,this.root);
+        //System.out.println(""+this.fitness);
+
+        //TODO: fitness may hava weird value, set to maximum(float);
     }
 }

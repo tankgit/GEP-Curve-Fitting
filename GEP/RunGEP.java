@@ -1,10 +1,8 @@
 package GEP;
 
-import Tools.ParseCSV;
-import kotlin.reflect.jvm.internal.impl.renderer.KeywordStringsGenerated;
+import Tools.*;
 
 import java.io.File;
-import java.util.Set;
 import java.util.Vector;
 
 /**
@@ -36,13 +34,51 @@ public class RunGEP {
 
     public void run()
     {
-        CreateFirstGeneration();
+        createFirstGeneration();
+
+        evolveGeneration();
+        //Display.displayChromosome(population.chromosomes.get(0));
+        for(this.NumberOfConstantIteration=0;this.NumberOfConstantIteration<Setting.IterationOfConstant;this.NumberOfConstantIteration++)
+        {
+            population.evolveConstant();
+            CalcuFitnessForChromosome();
+        }
+        population.sort();
 
     }
 
-    public void CreateFirstGeneration()
+    public void createFirstGeneration()
     {
         population.firstGeneration();
-        
+        CalcuFitnessForChromosome();
+        population.sort();
+    }
+
+    public void evolveGeneration()
+    {
+        //TODO: using Min ?
+        int iteration=Setting.MaxIterationOfEvolve;
+
+        for(;this.NumberOfEvolveIteration<iteration;this.NumberOfEvolveIteration++)
+        {
+            population.nextGeneration();
+            CalcuFitnessForChromosome();
+        }
+        population.sort();
+    }
+
+    private void CalcuFitnessForChromosome()
+    {
+        if(this.datas.size()>0)
+        {
+            for(Chromosome chromosome:population.chromosomes)
+            {
+                for(Data data:this.datas)
+                {
+                    chromosome.CalcuFitness(data);
+                }
+                chromosome.fitness/=this.datas.size();
+            }
+        }
     }
 }

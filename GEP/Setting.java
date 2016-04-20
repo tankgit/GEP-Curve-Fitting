@@ -50,7 +50,6 @@ public class Setting {
             ConstantStep=Float.parseFloat(dataList.get(i++)[1]);
             for(String ope:dataList.get(i))
             {
-                System.out.println();
                 if(!ope.equals("Operators"))
                 operators.add(new Operator(2,Integer.parseInt(ope)));
             }

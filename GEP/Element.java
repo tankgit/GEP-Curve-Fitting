@@ -33,6 +33,15 @@ public class Element{
             System.exit(0);
         }
     }
+    public void setConstant(float value)
+    {
+        if(this.type==Type.CONSTANT)
+        this.value=value;
+        else{
+            System.out.println("this method do not support this type of element");
+            System.exit(0);
+        }
+    }
     
     public Type getType()
     {

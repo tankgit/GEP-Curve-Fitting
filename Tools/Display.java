@@ -29,6 +29,7 @@ public class Display {
 
     public static void displayChromosome(Chromosome chromosome)
     {
+        System.out.println("Chromosome:");
         Queue<GeneNode> q=new LinkedList<>();
         q.add(chromosome.root);
         while(q.size()>0)

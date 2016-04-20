@@ -1,6 +1,7 @@
 package Tools;
 import GEP.*;
 
+import javax.sound.midi.SysexMessage;
 import java.util.*;
 
 import static java.lang.Math.abs;
@@ -72,38 +73,87 @@ public class Tools{
         return 0;
     }
 
-    public static void CreateRandomChromosome(Chromosome chromosome,int head,int tail)
+    public static Chromosome randomChromosome(int head, int tail)
     {
+        Chromosome chromosome=new Chromosome();
         chromosome.Clear();
         int sizeOfTree=head+tail;
         for(int i=0;i<sizeOfTree;i++)
         {
             boolean inHead=(i<head);
-            chromosome.Add(CreateRandomElement(inHead));
+            chromosome.Add(randomElement(inHead));
         }
         chromosome.Initialize();
+        return chromosome;
     }
 
-    public static Element CreateRandomElement(boolean inHead)
+    public static Element randomElement(boolean inHead)
     {
-        Type type=RandomType((int)random()*10);
+        Type type= randomType((int)randomNumber(0,3));
         if(!inHead&&type==Type.OPERATOR)
             type=Type.CONSTANT;
         switch(type){
-            case CONSTANT: return new Element(random()*(Setting.ConstantMax-Setting.ConstantMin)+Setting.ConstantMin);
-            case VARIABLE: return new Element((int)random()*Setting.NumberOfVariables);
-            case OPERATOR: return new Element((int)random()*Setting.operators.size());
-            default: return null;
+            case CONSTANT: return new Element(randomNumber(Setting.ConstantMin,Setting.ConstantMax));
+            case VARIABLE: return new Element(randomVariable());
+            case OPERATOR: return new Element(new Operator(2,(int)randomNumber(0,Setting.operators.size())));
+            default: System.out.println("Element get NULL type!");return null;
         }
     }
 
-    public static Type RandomType(int seed)
+    public static Type randomType(int seed)
     {
         switch(seed%3+1){
             case 1:return Type.VARIABLE;
             case 2:return Type.CONSTANT;
             case 3:return Type.OPERATOR;
-            default: return Type.NULL;
+            default: System.out.println("Type get NULL type!"); return Type.NULL;
         }
+    }
+
+    // random(int): [min,max-1]
+    public static int randomVariable()
+    {
+        return (int)randomNumber(0,Setting.NumberOfVariables);
+    }
+
+    // random(float): [min,max)
+    public static float randomNumber(float min,float max)
+    {
+        return (float)(random()*(max-min)+min);
+    }
+
+    public static void refineConstant(Element e)
+    {
+        if(e.getType()==Type.CONSTANT)
+        {
+            float constant = (float) e.getValue() + Setting.ConstantStep * (int) randomNumber(-1, 1);
+            e.setConstant(constant);
+        }
+        else {
+            System.out.println("Constant refining error.");
+            System.exit(0);
+        }
+    }
+
+
+    public static void sortByFitness(Vector<Chromosome> chromosomes,int left,int right)
+    {
+        float key=chromosomes.get((left+right)/2).fitness;
+        int i=left;
+        int j=right;
+
+        while(i<j)
+        {
+            while(chromosomes.get(i).fitness<key)i++;
+            while(chromosomes.get(j).fitness>key)j--;
+            if(i<=j)
+            {
+                Chromosome tem=chromosomes.get(i);
+                chromosomes.set(i++,chromosomes.get(j));
+                chromosomes.set(j--,tem);
+            }
+        }
+        if(j<right)sortByFitness(chromosomes,left,j);
+        if(i>left)sortByFitness(chromosomes,i,right);
     }
 }

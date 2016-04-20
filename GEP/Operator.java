@@ -4,6 +4,22 @@ package GEP;
  */
 public class Operator{
 
+
+    //TODO: What to
+    public class OperatorBase{
+        private int numOperand;
+        private char sign;
+        private int type;
+    }
+
+    public class Addition{
+
+    }
+
+    public class Multiply{}
+
+    public class Division{}
+
     //TODO: redefine the operator, implement numOperand binding with type.
 
     //number of operands
@@ -63,7 +79,7 @@ public class Operator{
     
     private float Mul(float ope1,float ope2)
     {
-        return ope1+ope2;
+        return ope1*ope2;
     }
     
     private float Div(float ope1,float ope2)

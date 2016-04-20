@@ -1,6 +1,6 @@
 MaxIterationOfEvolve,2000
 IterationOfConstant,1000
-NumberofChromosome,200
+NumberOfChromosome,200
 HeadSize,10
 SwapRatio,75
 MutationRation,30
