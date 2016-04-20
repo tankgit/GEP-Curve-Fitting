@@ -1,7 +1,6 @@
 import GEP.*;
 import Tools.*;
 
-import java.util.Vector;
 
 
 /**
@@ -22,21 +21,11 @@ class GepCurveFitting{
         runGEP.loadDatas("src/Data.CSV");
         runGEP.run();
 
-        Display.displayChromosome(runGEP.population.chromosomes.get(0));
+        Display.displayExpression(runGEP.population.chromosomes.get(0));
         System.out.println("\nFitness = "+runGEP.population.chromosomes.get(0).fitness);
         System.out.println();
 
-        //displayAllChromosome(runGEP.population.chromosomes);
         System.out.println("Finished");
-    }
-
-    private static void displayAllChromosome(Vector<Chromosome> chromosomes)
-    {
-        for(Chromosome chromosome:chromosomes)
-        {
-            Display.displayChromosome(chromosome);
-            System.out.println("Fitness = "+chromosome.fitness);
-        }
     }
 
     private static void baseTest()
@@ -44,7 +33,6 @@ class GepCurveFitting{
         System.out.println("Chromosome Test:");
         Operator add=new Operator(2,0);
         Operator mul=new Operator(2,1);
-        Operator div=new Operator(2,2);
 
         Chromosome chromosome=new Chromosome();
         chromosome.Add(new Element(add));
@@ -57,7 +45,7 @@ class GepCurveFitting{
         chromosome.Initialize();
 
         System.out.println();
-        Display.displayChromosome(chromosome);
+        Display.displayExpression(chromosome);
 
         Data d=new Data();
         d.fx=9.f;

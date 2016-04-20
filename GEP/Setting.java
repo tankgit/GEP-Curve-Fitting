@@ -21,9 +21,9 @@ public class Setting {
 
     public static int HeadSize;
 
-    public static int SwapRatio;
+    public static float MutationRatio;
 
-    public static int MutationRatio;
+    public static float DropOutRatio;
 
     public static float ConstantMax;
 
@@ -43,8 +43,8 @@ public class Setting {
             IterationOfConstant= Integer.parseInt(dataList.get(i++)[1]);
             NumberOfChromosome = Integer.parseInt(dataList.get(i++)[1]);
             HeadSize=Integer.parseInt(dataList.get(i++)[1]);
-            SwapRatio=Integer.parseInt(dataList.get(i++)[1]);
-            MutationRatio=Integer.parseInt(dataList.get(i++)[1]);
+            MutationRatio =Float.parseFloat(dataList.get(i++)[1]);
+            DropOutRatio =Float.parseFloat(dataList.get(i++)[1]);
             ConstantMax=Float.parseFloat(dataList.get(i++)[1]);
             ConstantMin= Float.parseFloat(dataList.get(i++)[1]);
             ConstantStep=Float.parseFloat(dataList.get(i++)[1]);

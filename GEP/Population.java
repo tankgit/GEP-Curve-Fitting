@@ -4,8 +4,6 @@ import Tools.*;
 
 import java.util.Vector;
 
-import static java.lang.Math.floorMod;
-import static java.lang.Math.random;
 
 /**
  * Created by tank on 4/19/16.
@@ -15,19 +13,19 @@ public class Population {
 
     public Vector<Chromosome> chromosomes=new Vector<>(Setting.NumberOfChromosome);
 
-    public int tail;
+    private int tail;
 
-    public int head;
+    private int head;
 
-    public int sizeOfTree;
+    private int sizeOfTree;
 
-    public int numberOfSurvivors;
+    private int numberOfSurvivors;
 
     private boolean sort=false;
 
-    public Population()
+    Population()
     {
-        this.numberOfSurvivors =Setting.NumberOfChromosome*(1-Setting.MutationRatio/100);
+        this.numberOfSurvivors =(int)(Setting.NumberOfChromosome*Setting.DropOutRatio);
         head=Setting.HeadSize;
 
         //TODO: need to be redefined globally after finishing operator operands settings.
@@ -36,16 +34,17 @@ public class Population {
         sizeOfTree=head+tail;
     }
 
-    public void firstGeneration()
+    void firstGeneration()
     {
         for(int i=0;i<Setting.NumberOfChromosome;i++)
             chromosomes.add(Tools.randomChromosome(head,tail));
     }
 
-    public void nextGeneration()
+    void nextGeneration()
     {
         if(!this.sort)
             sort();
+        this.sort=false;
         for(int i = this.numberOfSurvivors; i<this.chromosomes.size(); i++)
         {
             Chromosome child = this.chromosomes.get(i);
@@ -54,14 +53,14 @@ public class Population {
             child.Initialize();
             this.chromosomes.set(i,child);
         }
-        this.sort=false;
+
     }
 
     private void mutation(Chromosome child)
     {
         for(int i=0;i<child.chromosome.size();i++)
         {
-            if(Tools.randomNumber(0,100)<Setting.MutationRatio)
+            if(Tools.randomNumber(0,1)<Setting.MutationRatio)
             {
                 boolean inHead=i<this.head;
                 child.chromosome.set(i,Tools.randomElement(inHead));
@@ -71,8 +70,8 @@ public class Population {
 
     private boolean crossing(Chromosome child)
     {
-        Chromosome parent1= this.chromosomes.get((int)random()*this.numberOfSurvivors);
-        Chromosome parent2= this.chromosomes.get((int)random()*this.numberOfSurvivors);
+        Chromosome parent1= this.chromosomes.get((int)Tools.randomNumber(0,this.numberOfSurvivors));
+        Chromosome parent2= this.chromosomes.get((int)Tools.randomNumber(0,this.numberOfSurvivors));
         if(parent1==parent2)
             return false;
         int cross=(int)Tools.randomNumber(0,this.sizeOfTree+1);
@@ -86,7 +85,7 @@ public class Population {
         return true;
     }
 
-    public void evolveConstant()
+    void evolveConstant()
     {
         if(!this.sort)
             sort();
@@ -112,7 +111,7 @@ public class Population {
 
     }
 
-    public void sort()
+    void sort()
     {
         Tools.sortByFitness(chromosomes,0,chromosomes.size()-1);
         sort=true;

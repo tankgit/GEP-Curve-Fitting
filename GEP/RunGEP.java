@@ -36,8 +36,16 @@ public class RunGEP {
     {
         createFirstGeneration();
 
+
+
         evolveGeneration();
-        //Display.displayChromosome(population.chromosomes.get(0));
+
+        for(Chromosome chromosome:population.chromosomes)
+        {
+            Display.displayChromosome(chromosome);
+            System.out.println(chromosome.fitness);
+        }
+        //Display.displayExpression(population.chromosomes.get(0));
         for(this.NumberOfConstantIteration=0;this.NumberOfConstantIteration<Setting.IterationOfConstant;this.NumberOfConstantIteration++)
         {
             population.evolveConstant();
@@ -58,7 +66,6 @@ public class RunGEP {
     {
         //TODO: using Min ?
         int iteration=Setting.MaxIterationOfEvolve;
-
         for(;this.NumberOfEvolveIteration<iteration;this.NumberOfEvolveIteration++)
         {
             population.nextGeneration();

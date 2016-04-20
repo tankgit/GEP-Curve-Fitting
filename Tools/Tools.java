@@ -1,7 +1,6 @@
 package Tools;
 import GEP.*;
 
-import javax.sound.midi.SysexMessage;
 import java.util.*;
 
 import static java.lang.Math.abs;
@@ -100,18 +99,18 @@ public class Tools{
         }
     }
 
-    public static Type randomType(int seed)
+    private static Type randomType(int seed)
     {
-        switch(seed%3+1){
-            case 1:return Type.VARIABLE;
-            case 2:return Type.CONSTANT;
-            case 3:return Type.OPERATOR;
+        switch(seed%3){
+            case 0:return Type.VARIABLE;
+            case 1:return Type.CONSTANT;
+            case 2:return Type.OPERATOR;
             default: System.out.println("Type get NULL type!"); return Type.NULL;
         }
     }
 
     // random(int): [min,max-1]
-    public static int randomVariable()
+    private static int randomVariable()
     {
         return (int)randomNumber(0,Setting.NumberOfVariables);
     }

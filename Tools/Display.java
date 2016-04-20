@@ -11,6 +11,7 @@ import java.util.LinkedList;
  */
 public class Display {
 
+
     private static void printElement(Element element)
     {
         switch(element.getType()){
@@ -27,9 +28,9 @@ public class Display {
         }
     }
 
-    public static void displayChromosome(Chromosome chromosome)
+    public static void displayExpression(Chromosome chromosome)
     {
-        System.out.println("Chromosome:");
+        System.out.println("Expression:");
         Queue<GeneNode> q=new LinkedList<>();
         q.add(chromosome.root);
         while(q.size()>0)
@@ -48,4 +49,16 @@ public class Display {
         }
         System.out.println();
     }
+
+    public static void displayChromosome(Chromosome chromosome)
+    {
+        System.out.println("Chromosome:");
+        for(Element e:chromosome.chromosome)
+        {
+            printElement(e);
+            System.out.print("|");
+        }
+        System.out.println();
+    }
+
 }
