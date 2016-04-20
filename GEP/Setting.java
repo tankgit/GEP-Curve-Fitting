@@ -51,7 +51,7 @@ public class Setting {
             for(String ope:dataList.get(i))
             {
                 if(!ope.equals("Operators"))
-                operators.add(new Operator(2,Integer.parseInt(ope)));
+                operators.add(new Operator(ope));
             }
 
         }

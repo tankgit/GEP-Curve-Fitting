@@ -66,7 +66,8 @@ public class Tools{
                 float ope1=Calcul(data,root.left);
                 float ope2=Calcul(data,root.right);
                 Operator ope=(Operator)e.getValue();
-                return ope.rule(ope1,ope2);
+                float[] operands=new float[]{ope1,ope2};
+                return ope.rule(operands);
             }
         }
         return 0;
@@ -94,7 +95,7 @@ public class Tools{
         switch(type){
             case CONSTANT: return new Element(randomNumber(Setting.ConstantMin,Setting.ConstantMax));
             case VARIABLE: return new Element(randomVariable());
-            case OPERATOR: return new Element(new Operator(2,(int)randomNumber(0,Setting.operators.size())));
+            case OPERATOR: return new Element(randomOperator());
             default: System.out.println("Element get NULL type!");return null;
         }
     }
@@ -109,16 +110,19 @@ public class Tools{
         }
     }
 
+    public static float randomNumber(float min,float max)
+    {
+        return (float)(random()*(max-min)+min);
+    }
     // random(int): [min,max-1]
     private static int randomVariable()
     {
         return (int)randomNumber(0,Setting.NumberOfVariables);
     }
 
-    // random(float): [min,max)
-    public static float randomNumber(float min,float max)
+    private static Operator randomOperator()
     {
-        return (float)(random()*(max-min)+min);
+        return Setting.operators.get((int)randomNumber(0,Setting.operators.size()));
     }
 
     public static void refineConstant(Element e)

@@ -1,104 +1,159 @@
 package GEP;
+
+import java.util.Objects;
+import java.util.Vector;
+
 /**
  * Created by tank on 4/19/16.
  */
 public class Operator{
 
+    public enum operatorType{
+        ADDITION,
+        MULTIPLY,
+        DIVISION
+    }
 
-    //TODO: What to
-    public class OperatorBase{
+
+    private OperatorBase operator;
+
+    private Addition addition=new Addition();
+
+    private Multiply multiply=new Multiply();
+
+    private Division division=new Division();
+
+    private float result=0;
+
+
+
+    private class OperatorBase{
         private int numOperand;
         private char sign;
-        private int type;
-    }
+        private operatorType type;
 
-    public class Addition{
-
-    }
-
-    public class Multiply{}
-
-    public class Division{}
-
-    //TODO: redefine the operator, implement numOperand binding with type.
-
-    //number of operands
-    private int numOperand;
-
-    //sign of operator
-    private char sign;
-
-    //type of operator
-    private int type;
-
-    public Operator(int numOperand,int type)
-    {
-        this.numOperand=numOperand;
-        this.type=type;
-        try{
-            setSign(this.type);
-        }
-        catch(Exception e)
+        OperatorBase(operatorType type)
         {
-            e.printStackTrace();
+            this.type=type;
+            switch(this.type)
+            {
+                case ADDITION:
+                    numOperand=2;
+                    sign='+';
+                    break;
+                case MULTIPLY:
+                    numOperand=2;
+                    sign='*';
+                    break;
+                case DIVISION:
+                    numOperand=2;
+                    sign='/';
+                    break;
+            }
+        }
+
+        public int getNumOperand()
+        {
+            return this.numOperand;
+        }
+
+        public char getSign()
+        {
+            return this.sign;
+        }
+
+        public operatorType getType()
+        {
+            return this.type;
+        }
+    }
+
+    private class Addition extends OperatorBase{
+
+        Addition()
+        {
+            super(operatorType.ADDITION);
+        }
+
+        float rule(float a, float b)
+        {
+            return a+b;
+        }
+    }
+
+    private class Multiply extends OperatorBase{
+        Multiply()
+        {
+            super(operatorType.MULTIPLY);
+        }
+
+        float rule(float a, float b)
+        {
+            return a*b;
+        }
+    }
+
+    private class Division extends OperatorBase {
+        Division()
+        {
+            super(operatorType.DIVISION);
+        }
+
+        float rule(float a, float b)
+        {
+            return b==0?Float.MAX_VALUE:a/b;
+        }
+    }
+
+
+
+    public Operator(operatorType type)
+    {
+        this.operator=new OperatorBase(type);
+    }
+
+    public Operator(String sign)
+    {
+        switch(sign)
+        {
+            case "+":this.operator=new OperatorBase(operatorType.ADDITION);
+                break;
+            case "*":this.operator=new OperatorBase(operatorType.MULTIPLY);
+                break;
+            case "/":this.operator=new OperatorBase(operatorType.DIVISION);
+        }
+    }
+
+    public float rule(float[] operands)
+    {
+        if(operands.length!=operator.getNumOperand())
+        {
+            System.out.println("Number of operands doesn't match!");
             System.exit(0);
-        }        
-    }
-
-    private void setSign(int type) throws Exception
-    {
-        switch(type)
-        {
-            case 0: this.sign='+';
-            return;
-            case 1: this.sign='*';
-            return;
-            case 2: this.sign='/';
-            return;
-            default: 
-            throw new Exception("No such type of operator!");
-
         }
-    }
-    
-    public float rule(float ope1,float ope2)
-    {
-        switch(type)
+        switch(this.operator.getType())
         {
-            case 0: return Add(ope1,ope2);
-            case 1: return Mul(ope1,ope2);
-            case 2: return Div(ope1,ope2);
+            case ADDITION:result=addition.rule(operands[0],operands[1]);break;
+            case MULTIPLY:result=multiply.rule(operands[0],operands[1]);break;
+            case DIVISION:result=division.rule(operands[0],operands[1]);break;
         }
-        return 0;
-    }
-    
-    private float Add(float ope1,float ope2)
-    {
-        return ope1+ope2;
-    }
-    
-    private float Mul(float ope1,float ope2)
-    {
-        return ope1*ope2;
-    }
-    
-    private float Div(float ope1,float ope2)
-    {
-        if(ope2==0)return Float.MAX_VALUE;
-        return ope1/ope2;
+        return this.result;
     }
 
-    public int getType()
+    public int getNumOperand()
     {
-        return this.type;
+        return operator.getNumOperand();
     }
-    
+
     public char getSign()
     {
-        return this.sign;
+        return operator.getSign();
     }
-    
 
+    public operatorType getType()
+    {
+        return operator.getType();
+    }
     
 	
 }

@@ -15,8 +15,6 @@ class GepCurveFitting{
         //TODO: set a default setting while no input file.
         new Setting("src/Settings.CSV");
 
-
-
         RunGEP runGEP=new RunGEP();
         runGEP.loadDatas("src/Data.CSV");
         runGEP.run();
@@ -31,8 +29,8 @@ class GepCurveFitting{
     private static void baseTest()
     {
         System.out.println("Chromosome Test:");
-        Operator add=new Operator(2,0);
-        Operator mul=new Operator(2,1);
+        Operator add=new Operator(Operator.operatorType.ADDITION);
+        Operator mul=new Operator(Operator.operatorType.MULTIPLY);
 
         Chromosome chromosome=new Chromosome();
         chromosome.Add(new Element(add));

@@ -7,4 +7,4 @@ DropOutRation,0.75
 ConstantMax,1000
 ConstantMin,-1000
 ConstantStep,0.01
-Operators,0,1,2
+Operators,+,*,/

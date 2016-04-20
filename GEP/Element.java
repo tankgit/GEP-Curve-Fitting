@@ -6,33 +6,26 @@ public class Element{
     
     private Type type;
     private Object value;
-    
-    
-    public Element(Object value)
+
+
+    public Element(float value)
     {
-        try{
-            this.value=value;
-            switch(value.getClass().getName())
-            {
-                case "java.lang.Integer":
-                    this.type=Type.VARIABLE;
-                    break;
-                case "java.lang.Float":
-                    this.type=Type.CONSTANT;
-                    break;
-                case "GEP.Operator":
-                    this.type=Type.OPERATOR;
-                    break; 
-                default:
-                    throw new Exception("No such type of element!");
-            }
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            System.exit(0);
-        }
+        this.type=Type.CONSTANT;
+        this.value=value;
     }
+
+    public Element(int value)
+    {
+        this.type=Type.VARIABLE;
+        this.value=value;
+    }
+
+    public Element(Operator value)
+    {
+        this.type=Type.OPERATOR;
+        this.value=value;
+    }
+
     public void setConstant(float value)
     {
         if(this.type==Type.CONSTANT)
