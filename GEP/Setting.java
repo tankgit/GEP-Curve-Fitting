@@ -4,6 +4,7 @@ import Tools.ParseCSV;
 
 import java.io.File;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 /**
@@ -13,25 +14,32 @@ public class Setting {
 
     public static int NumberOfVariables;
 
-    public static int MaxIterationOfEvolve;
+    public static int MaxIterationOfEvolve=2000;
 
-    public static int IterationOfConstant;
+    public static int IterationOfConstant=1000;
 
-    public static int NumberOfChromosome;
+    public static int NumberOfChromosome=200;
 
-    public static int HeadSize;
+    public static int HeadSize=10;
 
-    public static float MutationRatio;
+    public static float MutationRatio=0.3f;
 
-    public static float DropOutRatio;
+    public static float DropOutRatio=0.75f;
 
-    public static float ConstantMax;
+    public static float ConstantMax=1000.f;
 
-    public static float ConstantMin;
+    public static float ConstantMin=-1000.f;
 
-    public static float ConstantStep;
+    public static float ConstantStep=0.01f;
 
     public static Vector<Operator> operators=new Vector<>();
+
+    public Setting()
+    {
+        operators.add(new Operator("+"));
+        operators.add(new Operator("*"));
+        operators.add(new Operator("/"));
+    }
 
     public Setting(String path)
     {

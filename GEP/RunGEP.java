@@ -1,7 +1,6 @@
 package GEP;
 
 import Tools.*;
-import com.sun.corba.se.impl.orb.ParserTable;
 
 import java.io.File;
 import java.util.Vector;
@@ -17,15 +16,6 @@ public class RunGEP {
 
     public Population population=new Population();
 
-    private int NumberOfEvolveIteration;
-
-    private int NumberOfConstantIteration;
-
-    public RunGEP()
-    {
-        this.NumberOfEvolveIteration=0;
-        this.NumberOfConstantIteration=0;
-    }
 
     public void loadDatas(String trainingDataPath, String testDataPath)
     {
@@ -45,12 +35,8 @@ public class RunGEP {
 
         evolveGeneration();
 
-        for(this.NumberOfConstantIteration=0;this.NumberOfConstantIteration<Setting.IterationOfConstant;this.NumberOfConstantIteration++)
-        {
-            population.evolveConstant();
-            CalcuFitnessForTrainingDataSet();
-        }
-        population.sort();
+        evolveConstant();
+
         CalcuFitnessForTestDataSet();
     }
 
@@ -63,12 +49,35 @@ public class RunGEP {
 
     public void evolveGeneration()
     {
-        int iteration=Setting.MaxIterationOfEvolve;
-        for(;this.NumberOfEvolveIteration<iteration;this.NumberOfEvolveIteration++)
+        int progress=100;
+        for(int i=0;i<Setting.MaxIterationOfEvolve;i++)
         {
+            if((int)(100*(float)i/Setting.MaxIterationOfEvolve)!=progress)
+            {
+                progress=(int)(100*(float)i/Setting.MaxIterationOfEvolve);
+                Display.displayProgressBar("Evolve",progress+1,0);
+            }
             population.nextGeneration();
             CalcuFitnessForTrainingDataSet();
         }
+        System.out.println();
+        population.sort();
+    }
+
+    public void evolveConstant()
+    {
+        int progress=100;
+        for(int i=0;i<Setting.IterationOfConstant;i++)
+        {
+            if((int)(100*(float)i/Setting.IterationOfConstant)!=progress)
+            {
+                progress=(int)(100*(float)i/Setting.IterationOfConstant);
+                Display.displayProgressBar("Improve",progress+1,1);
+            }
+            population.evolveConstant();
+            CalcuFitnessForTrainingDataSet();
+        }
+        System.out.println();
         population.sort();
     }
 
