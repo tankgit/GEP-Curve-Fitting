@@ -36,14 +36,16 @@ public class Chromosome{
     public void Initialize()
     {
         this.trainingFitness =0;
+        this.testFitness=0;
         this.root= Tools.CreateTree(this.chromosome);
     }
     
-    void CalcuTrainingFitness(Data data)
+    public void CalcuTrainingFitness(Data data)
     {
         this.trainingFitness +=Tools.CalcuFitnessFromData(data,this.root);
 
-        //TODO: trainingFitness may have weird value, set to maximum(float);
+        if(!(this.trainingFitness>=0))
+            this.trainingFitness=Float.MAX_VALUE;
     }
 
     void CalcuTestFitness(Data data)

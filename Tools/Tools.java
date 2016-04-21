@@ -49,7 +49,8 @@ public class Tools{
     
     public static float CalcuFitnessFromData(Data data, GeneNode root)
     {
-        return abs(data.fx-Calcul(data,root));
+        float r=abs(data.fx-Calcul(data,root));
+        return r<0.0001f?0:r;
     }
     
     private static float Calcul(Data data,GeneNode root)
@@ -115,14 +116,15 @@ public class Tools{
         return (float)(random()*(max-min)+min);
     }
     // random(int): [min,max-1]
+    //TODO: random() need to be changed since its return value is not clear.
     private static int randomVariable()
     {
-        return (int)randomNumber(0,Setting.NumberOfVariables);
+        return (int)randomNumber(0,Setting.NumberOfVariables-0.01f);
     }
 
     private static Operator randomOperator()
     {
-        return Setting.operators.get((int)randomNumber(0,Setting.operators.size()));
+        return Setting.operators.get((int)randomNumber(0,Setting.operators.size()-0.01f));
     }
 
     public static void refineConstant(Element e)

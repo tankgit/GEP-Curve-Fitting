@@ -24,6 +24,10 @@ public class Setting {
 
     public static float MutationRatio=0.3f;
 
+    public static float StableMutationRatio=0.3f;
+
+    public static float UnstableMutationRatio=0.7f;
+
     public static float DropOutRatio=0.75f;
 
     public static float ConstantMax=1000.f;
@@ -32,7 +36,13 @@ public class Setting {
 
     public static float ConstantStep=0.01f;
 
+    public static float ForceFitness=0.f;
+
+    public static float MaxStablePeriodRatio=0.2f;
+
     public static Vector<Operator> operators=new Vector<>();
+
+
 
     public Setting()
     {
@@ -51,11 +61,16 @@ public class Setting {
             IterationOfConstant= Integer.parseInt(dataList.get(i++)[1]);
             NumberOfChromosome = Integer.parseInt(dataList.get(i++)[1]);
             HeadSize=Integer.parseInt(dataList.get(i++)[1]);
-            MutationRatio =Float.parseFloat(dataList.get(i++)[1]);
+            StableMutationRatio =Float.parseFloat(dataList.get(i++)[1]);
+            MutationRatio=StableMutationRatio;
+            UnstableMutationRatio=Float.parseFloat(dataList.get(i++)[1]);
             DropOutRatio =Float.parseFloat(dataList.get(i++)[1]);
             ConstantMax=Float.parseFloat(dataList.get(i++)[1]);
             ConstantMin= Float.parseFloat(dataList.get(i++)[1]);
             ConstantStep=Float.parseFloat(dataList.get(i++)[1]);
+            ForceFitness=Float.parseFloat(dataList.get(i++)[1]);
+            MaxStablePeriodRatio=Float.parseFloat(dataList.get(i++)[1]);
+
             for(String ope:dataList.get(i))
             {
                 if(!ope.equals("Operators"))

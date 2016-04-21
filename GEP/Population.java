@@ -2,6 +2,7 @@ package GEP;
 
 import Tools.*;
 
+import java.util.Set;
 import java.util.Vector;
 
 
@@ -25,7 +26,7 @@ public class Population {
 
     Population()
     {
-        this.numberOfSurvivors =(int)(Setting.NumberOfChromosome*Setting.DropOutRatio);
+        this.numberOfSurvivors =(int)(Setting.NumberOfChromosome*(1-Setting.DropOutRatio));
         head=Setting.HeadSize;
 
         //TODO: need to be redefined globally after finishing operator operands settings.

@@ -1,6 +1,8 @@
 import GEP.*;
 import Tools.*;
 
+import java.util.Date;
+import java.util.Vector;
 
 
 /**
@@ -10,8 +12,8 @@ class GepCurveFitting{
     public static void main(String[] args)
     {
         //baseTest();
-
         RunGEP runGEP=new RunGEP();
+
         int i=0;
         if(args.length==0||args.length>4)
             man();
@@ -44,12 +46,15 @@ class GepCurveFitting{
             }
         }
         runGEP.loadDatas(train,test);
+
         System.out.println("Data loaded!");
 
 
         runGEP.run();
 
         Result(runGEP);
+
+        //baseTest(runGEP.trainingDataSet);
 
     }
 
@@ -72,18 +77,25 @@ class GepCurveFitting{
 
     }
 
-    private static void baseTest()
+    private static void baseTest(Vector<Data> datas)
     {
         System.out.println("Chromosome Test:");
-        Operator add=new Operator(Operator.operatorType.ADDITION);
-        Operator mul=new Operator(Operator.operatorType.MULTIPLY);
+        Operator add=new Operator("+");
+        Operator mul=new Operator("*");
+        Operator div=new Operator("/");
 
         Chromosome chromosome=new Chromosome();
+        chromosome.Add(new Element(mul));
         chromosome.Add(new Element(add));
-        chromosome.Add(new Element(mul));
+        chromosome.Add(new Element(0));
+        chromosome.Add(new Element(add));
+        chromosome.Add(new Element(0));
+        chromosome.Add(new Element(div));
         chromosome.Add(new Element(0));
         chromosome.Add(new Element(mul));
-        chromosome.Add(new Element(0));
+        chromosome.Add(new Element(add));
+        chromosome.Add(new Element(1));
+        chromosome.Add(new Element(1));
         chromosome.Add(new Element(0));
         chromosome.Add(new Element(0));
         chromosome.Initialize();
@@ -91,12 +103,16 @@ class GepCurveFitting{
         System.out.println();
         Display.displayExpression(chromosome);
 
-        Data d=new Data();
+        /*Data d=new Data();
         d.fx=9.f;
         d.x.add(3.f);
-
         System.out.println();
         System.out.println("Fitness = "+Tools.CalcuFitnessFromData(d,chromosome.root));
-
+*/
+        for(Data data:datas)
+        {
+            chromosome.CalcuTrainingFitness(data);
+        }
+        System.out.println(chromosome.trainingFitness/datas.size());
     }
 }

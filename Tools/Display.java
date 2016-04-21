@@ -92,13 +92,13 @@ public class Display {
         }
     }
 
-    public static void displayProgressBar(String title,int progress,int color)
+    public static void displayProgressBar(String title,int progress,float fitness,int color)
     {
         System.out.print("\n\033[1A");
         System.out.print("\033[20D");
         System.out.print("\033[K\033[0m");
         System.out.print(title+"\t\033["+(color+31)+"m[ ");
-        System.out.print(progress+"% ]\033[0m");
+        System.out.print(progress+"% ]\t"+"Current best fitness: "+fitness+"\033[0m");
     }
 
 }
