@@ -10,13 +10,15 @@ public class Chromosome{
     
     public Vector<Element> chromosome=new Vector<>();
     
-    public float fitness;
+    public float trainingFitness;
+
+    public float testFitness;
     
     public GeneNode root;
     
     public Chromosome()
     {
-        this.fitness=0;
+        this.trainingFitness =0;
         this.root=null;
     }
     
@@ -33,14 +35,19 @@ public class Chromosome{
     
     public void Initialize()
     {
-        this.fitness=0;
+        this.trainingFitness =0;
         this.root= Tools.CreateTree(this.chromosome);
     }
     
-    void CalcuFitness(Data data)
+    void CalcuTrainingFitness(Data data)
     {
-        this.fitness+=Tools.CalcuFitnessFromData(data,this.root);
+        this.trainingFitness +=Tools.CalcuFitnessFromData(data,this.root);
 
-        //TODO: fitness may hava weird value, set to maximum(float);
+        //TODO: trainingFitness may have weird value, set to maximum(float);
+    }
+
+    void CalcuTestFitness(Data data)
+    {
+        this.testFitness+=Tools.CalcuFitnessFromData(data,this.root);
     }
 }

@@ -1,6 +1,7 @@
 package GEP;
 
 import Tools.*;
+import com.sun.corba.se.impl.orb.ParserTable;
 
 import java.io.File;
 import java.util.Vector;
@@ -10,7 +11,9 @@ import java.util.Vector;
  */
 public class RunGEP {
 
-    public Vector<Data> datas=new Vector<>();
+    public Vector<Data> trainingDataSet =new Vector<>();
+
+    public Vector<Data> testDataSet= new Vector<>();
 
     public Population population=new Population();
 
@@ -24,68 +27,79 @@ public class RunGEP {
         this.NumberOfConstantIteration=0;
     }
 
-    public void loadDatas(String dataPath)
+    public void loadDatas(String trainingDataPath, String testDataPath)
     {
-        Vector<String[]> dataList= ParseCSV.readCSV(new File(dataPath));
-        for(String[] data:dataList)
-            this.datas.add(new Data(data));
-        Setting.NumberOfVariables=dataList.get(0).length-1;
+        Vector<String[]> trainingList = ParseCSV.readCSV(new File(trainingDataPath));
+        Vector<String[]> testList = ParseCSV.readCSV(new File(testDataPath));
+        if(testList.get(0).length!=trainingList.get(0).length);
+        for(String[] data: trainingList)
+            this.trainingDataSet.add(new Data(data));
+        for(String[] data: testList)
+            this.testDataSet.add(new Data(data));
+        Setting.NumberOfVariables= trainingList.get(0).length-1;
     }
 
     public void run()
     {
         createFirstGeneration();
 
-
-
         evolveGeneration();
 
-        for(Chromosome chromosome:population.chromosomes)
-        {
-            Display.displayChromosome(chromosome);
-            System.out.println(chromosome.fitness);
-        }
-        //Display.displayExpression(population.chromosomes.get(0));
         for(this.NumberOfConstantIteration=0;this.NumberOfConstantIteration<Setting.IterationOfConstant;this.NumberOfConstantIteration++)
         {
             population.evolveConstant();
-            CalcuFitnessForChromosome();
+            CalcuFitnessForTrainingDataSet();
         }
         population.sort();
-
+        CalcuFitnessForTestDataSet();
     }
 
     public void createFirstGeneration()
     {
         population.firstGeneration();
-        CalcuFitnessForChromosome();
+        CalcuFitnessForTrainingDataSet();
         population.sort();
     }
 
     public void evolveGeneration()
     {
-        //TODO: using Min ?
         int iteration=Setting.MaxIterationOfEvolve;
         for(;this.NumberOfEvolveIteration<iteration;this.NumberOfEvolveIteration++)
         {
             population.nextGeneration();
-            CalcuFitnessForChromosome();
+            CalcuFitnessForTrainingDataSet();
         }
         population.sort();
     }
 
-    private void CalcuFitnessForChromosome()
+    private void CalcuFitnessForTrainingDataSet()
     {
-        if(this.datas.size()>0)
+        if(this.trainingDataSet.size()>0)
         {
             for(Chromosome chromosome:population.chromosomes)
             {
-                for(Data data:this.datas)
+                for(Data data:this.trainingDataSet)
                 {
-                    chromosome.CalcuFitness(data);
+                    chromosome.CalcuTrainingFitness(data);
                 }
-                chromosome.fitness/=this.datas.size();
+                chromosome.trainingFitness /=this.trainingDataSet.size();
             }
         }
     }
+
+    private void CalcuFitnessForTestDataSet()
+    {
+        if(this.testDataSet.size()>0)
+        {
+            for(Chromosome chromosome:population.chromosomes)
+            {
+                for(Data data:this.testDataSet)
+                {
+                    chromosome.CalcuTestFitness(data);
+                }
+                chromosome.testFitness /=this.testDataSet.size();
+            }
+        }
+    }
+
 }

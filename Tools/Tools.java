@@ -10,7 +10,7 @@ import static java.lang.Math.random;
  * Created by tank on 4/19/16.
  */
 public class Tools{
-    
+    //TODO: refine the tree from bi-tree to multi-tree
     public static GeneNode CreateTree(Vector<Element> chromosome)
     {
         if(chromosome.size()>0)
@@ -141,14 +141,14 @@ public class Tools{
 
     public static void sortByFitness(Vector<Chromosome> chromosomes,int left,int right)
     {
-        float key=chromosomes.get((left+right)/2).fitness;
+        float key=chromosomes.get((left+right)/2).trainingFitness;
         int i=left;
         int j=right;
 
         while(i<j)
         {
-            while(chromosomes.get(i).fitness<key)i++;
-            while(chromosomes.get(j).fitness>key)j--;
+            while(chromosomes.get(i).trainingFitness <key)i++;
+            while(chromosomes.get(j).trainingFitness >key)j--;
             if(i<=j)
             {
                 Chromosome tem=chromosomes.get(i);

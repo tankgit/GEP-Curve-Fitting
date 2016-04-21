@@ -3,8 +3,11 @@ package Tools;
 
 
 import GEP.*;
+
+import java.util.Objects;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * Created by tank on 4/19/16.
@@ -12,27 +15,30 @@ import java.util.LinkedList;
 public class Display {
 
 
-    private static void printElement(Element element)
+    private static String printElement(Element element)
     {
+        String c=null;
         switch(element.getType()){
             case CONSTANT:
-                System.out.print(""+element.getValue());
+                c=Objects.toString(element.getValue());
                 break;
             case VARIABLE:
-                System.out.print("X"+element.getValue());
+                c="X"+ Objects.toString(element.getValue());
                 break;
             case OPERATOR:
                 Operator ope=(Operator)element.getValue();
-                System.out.print(""+ope.getSign());
+                c=""+ope.getSign();
                 break;
         }
+        return c;
     }
 
     public static void displayExpression(Chromosome chromosome)
     {
-        System.out.println("Expression:");
+        System.out.println("\033[31mEffective Gene Fragment:");
         Queue<GeneNode> q=new LinkedList<>();
         q.add(chromosome.root);
+        System.out.print("|");
         while(q.size()>0)
         {
             if(q.peek().left!=null)
@@ -43,22 +49,47 @@ public class Display {
             {
                 q.add(q.peek().right);
             }
-            printElement(q.peek().element);
+            System.out.print(printElement(q.peek().element));
             System.out.print("|");
             q.poll();
         }
-        System.out.println();
+        System.out.println("\033[0m\n");
     }
 
     public static void displayChromosome(Chromosome chromosome)
     {
         System.out.println("Chromosome:");
+        System.out.print("|");
         for(Element e:chromosome.chromosome)
         {
-            printElement(e);
+            System.out.print((printElement(e)));
             System.out.print("|");
         }
-        System.out.println();
+        System.out.println("\n");
+    }
+
+    public static void displayMathExpression(Chromosome chromosome)
+    {
+        System.out.println("\033[32mMath Expression:");
+        GeneNode root=chromosome.root;
+        System.out.print("F( X0");
+        for(int i=1;i< Setting.NumberOfVariables;i++)
+            System.out.print(", X"+i);
+        System.out.print(" ) = ");
+        System.out.println(DFS(root));
+        System.out.println("\033[0m");
+    }
+
+    private static String DFS(GeneNode node)
+    {
+        if(node.element.getType()!=Type.OPERATOR)
+        {
+            return printElement(node.element);
+        }
+        else
+        {
+            return " ("+DFS(node.left)+printElement(node.element)+DFS(node.right)+") ";
+        }
     }
 
 }
