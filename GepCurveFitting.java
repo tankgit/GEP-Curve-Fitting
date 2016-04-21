@@ -55,7 +55,7 @@ class GepCurveFitting{
 
     private static void man()
     {
-        System.out.println("Usage:\n\t.. [-r SettingFile] TrainingFile [TestFile]\n\tTip:\n\t-Set as default without [-r]\n\t-Set as TrainingFile without [TestFile]");
+        System.out.println("Usage:\n\t.. [-s SettingFile] TrainingFile [TestFile]\n\tTip:\n\t-Set as default without [-r]\n\t-Set as TrainingFile without [TestFile]");
         System.exit(0);
     }
 
