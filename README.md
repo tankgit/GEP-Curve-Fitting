@@ -43,7 +43,7 @@ Just like this:
 ## LICENSE
 ```
 MIT LICENSE.
-COPYRIGHT (C) 2014,2015,2016 Derek Liu
+COPYRIGHT (C) 2016 Derek Liu
 ```
 
 2016/04/18 by Derek Liu
