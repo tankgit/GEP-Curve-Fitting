@@ -26,8 +26,6 @@ This program can run well(perfect) under 1 or 2 variable(s) condition.
 
 #### Sample
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
 - input file: x0*x1+x0\x1+x0+x1.csv
 
 - output:
@@ -35,8 +33,6 @@ This program can run well(perfect) under 1 or 2 variable(s) condition.
  - chromosome: |+|*|+|X1|X0|X1|+|X0|/|X0|X1|
 
  - math expression: F( X0, X1 ) =  ( (X1*X0) + (X1+ (X0+ (X0/X1) ) ) )
-
-   - display as: \\(F(X_0,X_1)=X_1*X_0+X_1+X_0+\frac{X_0}{X_1}\\)
 
 ## LICENSE
 ```
