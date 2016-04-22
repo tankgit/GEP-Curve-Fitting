@@ -10,11 +10,17 @@ This program can run well(perfect) under 1 or 2 variable(s) condition.
 
 - Added a threshold of fitnees, under which the process will terminate, or the evolution process will continue constantly.
 
+- Smooth constants while its approximation works better.
+
 #### Note
 
 - if run the program on widonws, the output format will go wrong with character '\033'.
 
 - the algorithm might coverge to a unexpected value sometimes, if so, re-run it.
+
+- the algorithm works perfect when f(xi) contains no constant; the result with constants often has an error function e(xi), which generally won't converge to a stable value. 
+Just like this:
+![AAA](error.png)
 
 #### Content
 

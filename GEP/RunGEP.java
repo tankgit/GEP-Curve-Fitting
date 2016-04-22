@@ -66,10 +66,10 @@ public class RunGEP {
                 if(e.getType()==Type.CONSTANT)
                 {
                     float f=(float)e.getValue();
-                    int a=(int)f;
-                    int b=a+1;
-                    if(f-a<0.01)f=a;
-                    if(b-f<0.01)f=b;
+                    float a=(int)(f*10.0f)/10.0f;
+                    if (f - a < 0.025) f = a;
+                    else if (f - a > 0.075) f = a + 0.1f;
+                    else f = a + 0.05f;
                     c.chromosome.add(new Element(f));
                 }else c.chromosome.add(e);
             }
@@ -78,6 +78,33 @@ public class RunGEP {
                 c.CalcuTrainingFitness(d);
             if(c.trainingFitness<population.chromosomes.get(i).trainingFitness)
                 population.chromosomes.set(i,c);
+        }
+        for(int i=0;i<population.chromosomes.size();i++)
+        {
+            Chromosome c = new Chromosome();
+            for (int j = 0; j < population.chromosomes.get(i).chromosome.size(); j++) {
+                Element e = population.chromosomes.get(i).chromosome.get(j);
+                c.chromosome.add(e);
+                c.Initialize();
+            }
+            for (int k = 0; k < c.chromosome.size(); k++) {
+                if (c.chromosome.get(k).getType() == Type.CONSTANT) {
+                    float f = (float) c.chromosome.get(k).getValue();
+                    float a = (int) (f * 10.0f) / 10.0f;
+                    if (f - a < 0.025) f = a;
+                    else if (f - a > 0.075) f = a + 0.1f;
+                    else f = a + 0.05f;
+                    c.chromosome.set(k, new Element(f));
+                    c.Initialize();
+                    for (Data d : trainingDataSet)
+                        c.CalcuTrainingFitness(d);
+                    if (c.trainingFitness < population.chromosomes.get(i).trainingFitness)
+                        population.chromosomes.set(i, c);
+                }
+
+            }
+
+
         }
         population.sort();
     }
